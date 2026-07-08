@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== 设计令牌（现代东方美学 · 墨韵主题）===== */
+:root {
+  --bg: #0e0e12;
+  --surface: #16161d;
+  --surface-2: #1e1e28;
+  --border: #262633;
+  --text: #edeaf3;
+  --text-muted: #9b98a8;
+  --aura: #7c5cff;
+  --aura-light: #a78bfa;
+  --aura-glow: #9d7fff;
+  --cinnabar: #c73e3a;
+  --moss: #639922;
+  --vermilion: #e24b4a;
+}
+
+/* 宣纸主题（浅色） */
+.light {
+  --bg: #f5f2ea;
+  --surface: #fffdf8;
+  --surface-2: #f0ece2;
+  --border: #e2dccd;
+  --text: #1c1917;
+  --text-muted: #6b6358;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--aura);
+}
+
+/* 选中文字 */
+::selection {
+  background: rgba(124, 92, 255, 0.35);
+  color: var(--text);
+}
+
+/* ===== 通用组件类 ===== */
+@layer components {
+  /* 玻璃质感卡片 */
+  .glass-card {
+    background: color-mix(in srgb, var(--surface) 78%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  /* 紫调辉光按钮 */
+  .btn-aura {
+    background: linear-gradient(135deg, var(--aura), var(--aura-light));
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 20px rgba(124, 92, 255, 0.35);
+  }
+  .btn-aura:hover {
+    box-shadow: 0 6px 28px rgba(124, 92, 255, 0.55);
+    transform: translateY(-1px);
+  }
+  .btn-aura:active {
+    transform: translateY(0);
+  }
+
+  /* 描边图标按钮 */
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .icon-btn:hover {
+    border-color: var(--aura);
+    color: var(--aura-light);
+  }
+
+  /* 异形答题选项（左圆右方）*/
+  .quiz-opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    text-align: left;
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 15px;
+  }
+  .quiz-opt:hover:not(:disabled) {
+    border-color: var(--aura);
+    background: var(--surface-2);
+  }
+  .quiz-opt:disabled {
+    cursor: not-allowed;
+  }
+  .quiz-opt .opt-badge {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .quiz-opt.correct {
+    background: rgba(99, 153, 34, 0.14);
+    border-color: var(--moss);
+    color: var(--moss);
+  }
+  .quiz-opt.correct .opt-badge {
+    border-color: var(--moss);
+    background: rgba(99, 153, 34, 0.2);
+  }
+  .quiz-opt.wrong {
+    background: rgba(226, 75, 74, 0.12);
+    border-color: var(--vermilion);
+    color: var(--vermilion);
+  }
+  .quiz-opt.wrong .opt-badge {
+    border-color: var(--vermilion);
+    background: rgba(226, 75, 74, 0.18);
+  }
+  .quiz-opt.dimmed {
+    opacity: 0.35;
+  }
+}
+
+/* 文字渐变 */
+.text-aura-gradient {
+  background: linear-gradient(135deg, var(--aura-light), var(--aura));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 印章纹路 */
+.seal-stamp {
+  position: relative;
+}
+.seal-stamp::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(199, 62, 58, 0.08) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+}
+
+/* 尊重 reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
